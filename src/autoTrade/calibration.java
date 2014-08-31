@@ -20,5 +20,3 @@ public class calibration {
         robotc.mouseRelease(InputEvent.BUTTON1_MASK);
     }
 }
-
-lolipop
