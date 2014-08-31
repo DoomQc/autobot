@@ -9,6 +9,7 @@ public class autoTrade {
 	public static final String BUTTON_LOG = new String("Indiquer");
 	
 	public static void main(String[] args) {
+		//commit par nav test
 		JFrame jframe = new MyIHM();
 	}
 }
