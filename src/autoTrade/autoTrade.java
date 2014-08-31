@@ -12,8 +12,6 @@ public class autoTrade {
 	
 	public static void main(String[] args) {
 		JFrame jframe = new MyIHM();
-		System.out.println("tot");
-		
+		System.out.println("toto");		
 	}
-
 }
