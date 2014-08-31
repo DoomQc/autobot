@@ -11,5 +11,6 @@ public class autoTrade {
 	public static void main(String[] args) {
 		//commit par nav test
 		JFrame jframe = new MyIHM();
+		//TOTOTOTO
 	}
 }
