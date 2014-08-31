@@ -1,8 +1,6 @@
 package autoTrade;
 
-import java.awt.GridLayout;
-import autoTrade.MyIHM;
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class autoTrade {
 
@@ -12,6 +10,6 @@ public class autoTrade {
 	
 	public static void main(String[] args) {
 		JFrame jframe = new MyIHM();
-		System.out.println("tata");		
+		System.out.println("titi");		
 	}
 }
