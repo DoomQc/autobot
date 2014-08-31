@@ -19,6 +19,12 @@ import java.util.Scanner;
 public class randomMouse {
 	Robot robot = new Robot();
 	Scanner reader = new Scanner(System.in);
+	String nextorder = "nextorder";
+	String jeup = "jeup";
+	String Copydepart = "Copydepart";
+	String copyfin = "copyfin";
+	String Checkifbox = "Checkifbox";
+	String myorderfind = "myorderfind";
 	int oSell[] = {360,160};
 	int oBuy[] = {360,700};
 	int mSell[] = {1280,240};
@@ -27,7 +33,8 @@ public class randomMouse {
 	Color Onorder1 =new Color(88, 88, 88);
 	Color Order =new Color(21, 21, 21);
 	Color Myorder =new Color(25,25,89);
-	Color Black =new Color(0,0,0,0);
+	Color Myorder1 =new Color(24,24,88);
+	Color Black =new Color(0,0,0);
     public randomMouse() throws AWTException {
         robot.setAutoDelay(50);
         robot.setAutoWaitForIdle(false);
@@ -39,11 +46,13 @@ public class randomMouse {
         int nPos = oSell[1];
         while (end == false)
         {
+        	System.out.println(nextorder);
         	robot.delay(500);
         	dclic(oSell[0],nPos);
             robot.delay(500);
             //do up
             uporder();
+            robot.delay(500);
             //System.out.println(robot.getPixelColor(1280, 260));
             robot.mouseMove(oSell[0],nPos+20);
             robot.delay(500);
@@ -57,29 +66,41 @@ public class randomMouse {
     }
     
     private void uporder(){
-    	if (!robot.getPixelColor(mSell[0],mSell[1]).equals(Myorder)){
+    	System.out.println(robot.getPixelColor(mSell[0],mSell[1])); 
+    	if (!robot.getPixelColor(mSell[0],mSell[1]).equals(Myorder)&&!robot.getPixelColor(mSell[0],mSell[1]).equals(Myorder1)){
+    		System.out.println(jeup);
             boolean mend;
             mend = false;
             int mPos = mSell[1];
             //prend le best price
     		clic(mSell[0],mSell[1]);
+    		robot.delay(500);
         	copy();
         	//get le price - 1
         	sub();
         	//find my order
         	while (mend == false){
-        		if (robot.getPixelColor(oSell[0],mPos).equals(Myorder)){
-                	dclic(oSell[0],mPos);
+        		System.out.println(robot.getPixelColor(mSell[0],mPos));
+        		System.out.println(mSell[0]);
+        		if (robot.getPixelColor(mSell[0],mPos).equals(Myorder)||robot.getPixelColor(mSell[0],mPos).equals(Myorder1)){
+        			System.out.println(myorderfind);
                 	mend = true;
                 }
         		mPos+=20;
         	}
         	//put the price
-        	rclic(oSell[0],mPos);
-        	clic(oSell[0]+10,mPos+20);
+        	robot.delay(500);
+        	rclic(mSell[0],mPos-20);
+        	robot.delay(500);
+        	clic(mSell[0]+10,mPos);
+        	robot.delay(500);
         	paste();
+        	robot.delay(500);
         	enter();
+        	robot.delay(500);
         	//check if box
+        	String Checkifbox = "Checkifbox";
+        	System.out.println(robot.getPixelColor(1050,480));        	
         	if (robot.getPixelColor(1050,480).equals(Black)){
         		clic(950,640);
         	}
@@ -95,8 +116,8 @@ public class randomMouse {
     }
 	private void rclic(int x, int y){
 		robot.mouseMove(x, y);
-		robot.mousePress(InputEvent.BUTTON2_MASK);
-        robot.mouseRelease(InputEvent.BUTTON2_MASK);
+		robot.mousePress(InputEvent.BUTTON3_MASK);
+        robot.mouseRelease(InputEvent.BUTTON3_MASK);
 
     }
     private void dclic(int x, int y){
@@ -125,6 +146,7 @@ public class randomMouse {
     	robot.keyRelease(KeyEvent.VK_V);
     }
     private void sub(){
+    	System.out.println(Copydepart);
         Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
         if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor)) { 
          String text = null;
@@ -167,5 +189,6 @@ public class randomMouse {
 
          StringSelection ss = new StringSelection(nb); 
          Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null); }
+        	System.out.println(copyfin);
        }
 }
