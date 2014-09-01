@@ -15,75 +15,98 @@ import java.io.IOException;
 import java.io.Reader;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.Random;
 
 public class randomMouse {
 	Robot robot = new Robot();
 	Scanner reader = new Scanner(System.in);
-	int oSell[] = {360,160};
-	int oBuy[] = {360,700};
-	int mSell[] = {1280,240};
-	int mBuy[] = {1280,660};
-	Color Onorder =new Color(89, 89, 89);
-	Color Onorder1 =new Color(88, 88, 88);
-	Color Order =new Color(21, 21, 21);
-	Color Myorder =new Color(25,25,89);
-	Color Black =new Color(0,0,0,0);
+	String nextorder = "nextorder";
+	String jeup = "jeup";
+	String Copydepart = "Copydepart";
+	String copyfin = "copyfin";
+	String Checkifbox = "Checkifbox";
+	String myorderfind = "myorderfind";
+	int oSell[] = {360,150};
+	int oBuy[] = {360,690};
+	int mSell[] = {1280,230};
+	int mBuy[] = {1280,666};
+	int mBox[] = {950,615};
+	Color Onorder =new Color(58,58,58);
+	Color Font =new Color(21, 21, 21);
+	Color Myorder =new Color(24,24,88);
+	Color onMyorder =new Color(52,52,82);
+	Color Black =new Color(0,0,0);
     public randomMouse() throws AWTException {
-        robot.setAutoDelay(50);
-        robot.setAutoWaitForIdle(false);
-        /**
-         * Déplacement en forme de Z
-         */
-        boolean end;
-        end = false;
-        int nPos = oSell[1];
-        while (end == false)
-        {
-        	robot.delay(500);
-        	dclic(oSell[0],nPos);
-            robot.delay(500);
-            //do up
-            uporder();
-            //System.out.println(robot.getPixelColor(1280, 260));
-            robot.mouseMove(oSell[0],nPos+20);
-            robot.delay(500);
-            System.out.println(robot.getPixelColor(oSell[0],nPos+20));
-            if (!robot.getPixelColor(oSell[0],nPos+20).equals(Onorder)&&!robot.getPixelColor(oSell[0],nPos+20).equals(Onorder1)){
-            	end = true;
-            }
-            nPos += 20;
-        }
-        nPos = 0;
+    	while(oSell[0]==360){
+	        boolean end;
+	        end = false;
+	        int nPos = oSell[1];
+	        
+	        while (end == false&&nPos < 800)
+	        {
+	        	clic(oSell[0],nPos);
+	        	robot.delay(random(300,500));
+	        	dclic(oSell[0],nPos);
+	        	robot.delay(random(500,1500));
+	            //do up
+	            uporder();
+	            robot.delay(random(1000,1500));
+	            //System.out.println(robot.getPixelColor(1280, 260));
+	            robot.mouseMove(oSell[0],nPos+20);
+	            robot.delay(random(300,500));
+	            System.out.println(nextorder);
+	            //System.out.println(robot.getPixelColor(oSell[0],nPos+20));
+	            if (!robot.getPixelColor(oSell[0],nPos+20).equals(Onorder)){
+	            	end = true;
+	            }
+	            nPos += 20;
+	        }
+	        nPos = 0;
+	        robot.delay(random(300000,900000));
+	    }
     }
-    
     private void uporder(){
+    	//System.out.println(robot.getPixelColor(mSell[0],mSell[1])); 
     	if (!robot.getPixelColor(mSell[0],mSell[1]).equals(Myorder)){
+    		System.out.println(jeup);
             boolean mend;
             mend = false;
             int mPos = mSell[1];
             //prend le best price
     		clic(mSell[0],mSell[1]);
+    		robot.delay(random(500,800));
         	copy();
+        	robot.delay(random(300,500));
         	//get le price - 1
         	sub();
+        	robot.delay(random(300,500));
         	//find my order
-        	while (mend == false){
-        		if (robot.getPixelColor(oSell[0],mPos).equals(Myorder)){
-                	dclic(oSell[0],mPos);
+        	while (mend == false&&mPos<400){
+        		//System.out.println(robot.getPixelColor(mSell[0],mPos));
+
+        		if (robot.getPixelColor(mSell[0],mPos).equals(Myorder)){
+        			System.out.println(myorderfind);
                 	mend = true;
                 }
         		mPos+=20;
         	}
         	//put the price
-        	rclic(oSell[0],mPos);
-        	clic(oSell[0]+10,mPos+20);
-        	paste();
-        	enter();
-        	//check if box
-        	if (robot.getPixelColor(1050,480).equals(Black)){
-        		clic(950,640);
+        	if(mPos<300){
+	        	rclic(mSell[0],mPos-20);
+	        	robot.delay(random(300,800));
+	        	clic(mSell[0]+10,mPos);
+	        	robot.delay(random(1000,1500));
+	        	paste();
+	        	robot.delay(random(400,1000));
+	        	enter();
+	        	robot.delay(random(1000,2000));
+	        	//check if box
+	        	System.out.println(Checkifbox);
+	        	//System.out.println(robot.getPixelColor(1050,480));        	
+	        	if (robot.getPixelColor(mBox[0],mBox[1]).equals(Black)){
+	        		clic(mBox[0],mBox[1]);
+	        	}
         	}
-
         }
     }
 
@@ -95,14 +118,15 @@ public class randomMouse {
     }
 	private void rclic(int x, int y){
 		robot.mouseMove(x, y);
-		robot.mousePress(InputEvent.BUTTON2_MASK);
-        robot.mouseRelease(InputEvent.BUTTON2_MASK);
+		robot.mousePress(InputEvent.BUTTON3_MASK);
+        robot.mouseRelease(InputEvent.BUTTON3_MASK);
 
     }
     private void dclic(int x, int y){
     	robot.mouseMove(x, y);
     	robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        robot.delay(100);
         robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
     }
@@ -124,7 +148,14 @@ public class randomMouse {
     	robot.keyRelease(KeyEvent.VK_ENTER );
     	robot.keyRelease(KeyEvent.VK_V);
     }
+    private static int random(int Min, int Max){
+    	Random rand = new Random();
+    	int random = rand.nextInt(Max - Min + 1) + Min;
+    	return random;
+    }
+    
     private void sub(){
+    	System.out.println(Copydepart);
         Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
         if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor)) { 
          String text = null;
@@ -167,5 +198,6 @@ public class randomMouse {
 
          StringSelection ss = new StringSelection(nb); 
          Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null); }
+        	System.out.println(copyfin);
        }
 }
