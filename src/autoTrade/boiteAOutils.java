@@ -6,6 +6,10 @@ import java.util.Random;
 
 public class boiteAOutils {
 	
+	/**
+	 * 
+	 * @return un tableau de 2 int représentant la taille de l'écran
+	 */
 	public static int[] tailleEcran() {
 		int i[] = new int[2];
         //rÃ©cupÃ©rer la taille de l'Ã©cran

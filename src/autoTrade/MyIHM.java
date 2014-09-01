@@ -2,6 +2,7 @@ package autoTrade;
 
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -25,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -204,13 +206,16 @@ public class MyIHM extends JFrame implements ActionListener, ChangeListener, Mou
 	public void createParamFrame() {
 		
 		
-		System.out.println("création de la fenêtre de paramétrage");
+		System.out.println("creation de la fenetre de parametrage");
 
-		jfParametrage.setLayout(new GridLayout());
-		jfParametrage.setSize(100,boiteAOutils.tailleEcran()[1]);
+		//jfParametrage.setLayout(new GridLayout());
+		//jfParametrage.setSize(100,boiteAOutils.tailleEcran()[1]-200);
+		jfParametrage.setSize(800,700);
+		jfParametrage.setLocation(600,200);
 		jfParametrage.setAlwaysOnTop(true);
-		jfParametrage.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jfParametrage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jfParametrage.setDefaultLookAndFeelDecorated(true);
+		jfParametrage.setUndecorated(true);
 		
 		jpParametrage.setVisible(true);
 		
@@ -224,14 +229,22 @@ public class MyIHM extends JFrame implements ActionListener, ChangeListener, Mou
 			System.err.println("Translucency is not supported");
 			System.exit(0);
 		}
-		else jf.setVisible(true);
+		else {
+			
+			System.out.println("Transparence de fenetre supportee par le systeme");
+           	jfParametrage.setOpacity(0.50f);
+           	jfParametrage.getContentPane().add(new Canvas());
+   			jfParametrage.setVisible(true);
+		}
 	}
+
+	
 	
 	public void createWorkFrame() {
 		jf.setLayout(new GridLayout());
 		jf.setSize(300, 350);
 		jf.setAlwaysOnTop(true);
-		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setDefaultLookAndFeelDecorated(true);
 		
 		jp.setLayout(new GridLayout(7,2));
