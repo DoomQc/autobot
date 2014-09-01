@@ -1,6 +1,5 @@
 package autoTrade;
 
-import java.awt.Point;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -12,7 +11,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.io.Reader;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Random;
@@ -36,6 +34,7 @@ public class randomMouse {
 	Color Myorder =new Color(24,24,88);
 	Color onMyorder =new Color(52,52,82);
 	Color Black =new Color(0,0,0);
+	
     public randomMouse() throws AWTException {
     	while(oSell[0]==360){
 	        boolean end;
