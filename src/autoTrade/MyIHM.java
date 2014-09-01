@@ -105,7 +105,7 @@ public class MyIHM extends JFrame implements ActionListener, ChangeListener, Mou
 		
 		//Action � l'appui du bouton INDIQUER
 		if(e.getActionCommand().equals(autoTrade.BUTTON_LOG)) {
-			System.out.println("Indiquer");
+			jfParametrage.setVisible(!jfParametrage.isVisible());
 		};
 	}
 	
@@ -234,7 +234,6 @@ public class MyIHM extends JFrame implements ActionListener, ChangeListener, Mou
 			System.out.println("Transparence de fenetre supportee par le systeme");
            	jfParametrage.setOpacity(0.50f);
            	jfParametrage.getContentPane().add(new Canvas());
-   			jfParametrage.setVisible(true);
 		}
 	}
 
